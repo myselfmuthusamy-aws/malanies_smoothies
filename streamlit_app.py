@@ -16,7 +16,9 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 # session = get_active_session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('fruit_name'), col('search_on'))
+st.dataframe(data=my_dataframe, use_container_width(True))
+st.stop()
 
 
 # st.write(f"Current role: {session.get_current_role()}")
@@ -39,12 +41,6 @@ if ingredients_list:
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
         sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
         st.write(ingredients_string)
-
-
-    
-
-
-
 
     my_insert_stmt = f"""
 insert into smoothies.public.orders (INGREDIENTS, NAME_ON_ORDER)
