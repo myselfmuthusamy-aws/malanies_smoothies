@@ -70,4 +70,6 @@ smoothiefroot_response = requests.get(
     "https://my.smoothiefroot.com/api/fruit/watermelon"
 )
 
-st.text(smoothiefroot_response.text)
+# st.text(smoothiefroot_response.text).json()
+
+sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
